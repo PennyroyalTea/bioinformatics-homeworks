@@ -1,0 +1,8 @@
+32c32
+<     return sum(map(lambda i: 1 - max(map(lambda row: row[i], profile_matrix)), range(k)))
+---
+>     return sum(map(lambda i: sum(map(lambda row: entropy(row[i]), profile_matrix)), range(k)))
+34a35,37
+> def entropy(x):
+>     return 0 if x < .000001 else -x * math.log2(x)
+> 
