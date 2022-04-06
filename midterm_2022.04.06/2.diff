@@ -1,0 +1,27 @@
+5a6
+> cnt = [[0] * (len(t) + 1) for _ in range(len(s) + 1)]
+7a9
+> cnt[0][0] = 1
+20c22,31
+< 
+---
+>         # cnt update
+>         if i >= 1 and dp[i][j] == dp[i - 1][j] - indel:
+>             cnt[i][j] += cnt[i - 1][j]
+>         if j >= 1 and dp[i][j] == dp[i][j - 1] - indel:
+>             cnt[i][j] += cnt[i][j - 1]
+>         if i >= 1 and j >= 1:
+>             if s[i - 1] == t[j - 1] and dp[i][j] == dp[i - 1][j - 1] + match:
+>                 cnt[i][j] += cnt[i - 1][j - 1]
+>             elif s[i - 1] != t[j - 1] and dp[i][j] == dp[i - 1][j - 1] - mismatch:
+>                 cnt[i][j] += cnt[i - 1][j - 1]
+39,43c50
+< print(dp)
+< 
+< # print(dp[-1][-1])
+< # print(res1[::-1])
+< # print(res2[::-1])
+\ No newline at end of file
+---
+> print(cnt[-1][-1])
+\ No newline at end of file
