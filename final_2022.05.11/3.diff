@@ -1,0 +1,36 @@
+1a2
+> import random
+3a5
+> 
+8c10,38
+< centers = points[:k]
+---
+> def choice_weighted_with_replace(a, weights):
+> 	if not weights:
+> 		v = random.choice(a)
+> 	else:
+> 		weights_sum = sum(weights)
+> 		weights = list(map(lambda w: w / weights_sum, weights))
+> 		r = random.uniform(0, 1)
+> 		s = 0
+> 		for i, w in enumerate(weights):
+> 			s += w
+> 			if s > r:
+> 				v = a[i]
+> 				break
+> 	a.remove(v)
+> 	return v
+> 
+> def kmeans_init(points, k):
+> 	points = points[:] # cloning
+> 	centers = [choice_weighted_with_replace(points, None)]
+> 	for _ in range(k - 1):
+> 		weights = list(map(
+> 			lambda point: dist(point, min(centers, key=lambda center: dist(center, point)))**2, 
+> 				points))
+> 		print(f'points: {points}')
+> 		print(f'weights: {weights}')
+> 		centers.append(choice_weighted_with_replace(points, weights))
+> 	return centers
+> 
+> centers = kmeans_init(points, k)
