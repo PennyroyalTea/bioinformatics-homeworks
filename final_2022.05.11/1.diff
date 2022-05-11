@@ -1,0 +1,10 @@
+1a2
+> b = list(map(int, input().split(' ')))
+7c8
+< 	cur_index = a.index(i + 1) if (i + 1) in a else a.index(-(i + 1))
+---
+> 	cur_index = a.index(b[i]) if b[i] in a else a.index(-b[i])
+13c14
+< 	if a[i] < 0:
+---
+> 	if a[i] == -b[i]:
