@@ -1,3 +1,5 @@
+# from: https://github.com/PennyroyalTea/bioinformatics-homeworks/blob/master/homework_2022.04.29/8.8.3.py
+
 import sys
 import random
 from math import dist

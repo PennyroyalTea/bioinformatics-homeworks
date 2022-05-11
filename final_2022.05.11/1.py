@@ -1,3 +1,5 @@
+# from: https://github.com/PennyroyalTea/bioinformatics-homeworks/blob/master/homework_2022.04.15/6.4.4.py
+
 a = list(map(int, input().split(' ')))
 b = list(map(int, input().split(' ')))
 
