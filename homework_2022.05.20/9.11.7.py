@@ -1,4 +1,4 @@
-def better_bw_matching(first_occurrence, last_column, pattern, count):
+def better_bw_matching(first_occurrence, last_column, pattern, count, pref_id):
 	top = 0
 	bottom = len(last_column) - 1
 	while top <= bottom:
@@ -11,28 +11,58 @@ def better_bw_matching(first_occurrence, last_column, pattern, count):
 		else:
 			return 0
 
-s = input()
+def calc_pref_id(last_column):
+	def add_indices(s):
+	count = dict()
+	res = []
+	for c in s:
+		if not c in count:
+			count[c] = 0
+		res.append((c, count[c]))
+		count[c] += 1
+	return res
 
-first_occurrence = dict()
+	last_column_with_indices = add_indices(last_column)
+	first_column_with_indices = add_indices(sorted(last_column))
 
-s_f = sorted(s)
-for i, c in enumerate(s_f):
-	if not c in first_occurrence:
-		first_occurrence[c] = i
+	prev = ('$', 0)
+	restored = ''
 
-count = dict()
+	res = [0] * len(last_column)
+	for i in range(len(s)):
+		pos = last_column.index(prev)
+		cur = first_column[pos]
+		res[pos] = len(restored)
+		restored += cur[0]
+		prev = cur
 
-uniq_s = list(set(s))
+	return res
 
-for c in uniq_s:
-	count[c] = [0] * (len(s) + 1)
 
-for i in range(1, len(s) + 1):
-	for c in uniq_s:
-		count[c][i] = count[c][i - 1]
-	count[s[i - 1]][i] += 1
+s = input() + '$'
+print(f'{s}\n{calc_pref_id(s)}')
 
-print(' '.join(map(
-	lambda pattern: str(better_bw_matching(first_occurrence, s, list(pattern), count)), 
-	input().split(' '))))
+# first_occurrence = dict()
+
+# s_f = sorted(s)
+# for i, c in enumerate(s_f):
+# 	if not c in first_occurrence:
+# 		first_occurrence[c] = i
+
+# count = dict()
+
+# uniq_s = list(set(s))
+
+# for c in uniq_s:
+# 	count[c] = [0] * (len(s) + 1)
+
+# for i in range(1, len(s) + 1):
+# 	for c in uniq_s:
+# 		count[c][i] = count[c][i - 1]
+# 	count[s[i - 1]][i] += 1
+
+
+# print(' '.join(map(
+# 	lambda pattern: str(better_bw_matching(first_occurrence, s, list(pattern), count)), 
+# 	input().split(' '))))
 
